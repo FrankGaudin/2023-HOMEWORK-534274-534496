@@ -2,6 +2,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.Stanza;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+
 public class StanzaTest {
 	
 	Stanza s1 = new Stanza("s1");
