@@ -39,10 +39,11 @@ public class DiaDia {
 		Scanner scannerDiLinee;
 
 		System.out.println(MESSAGGIO_BENVENUTO);
-		scannerDiLinee = new Scanner(System.in);		
+		scannerDiLinee = new Scanner(System.in);
 		do		
 			istruzione = scannerDiLinee.nextLine();
 		while (!processaIstruzione(istruzione));
+		scannerDiLinee.close();
 	}   
 
 
