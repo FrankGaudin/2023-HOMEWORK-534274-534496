@@ -139,6 +139,7 @@ public class Stanza {
 		boolean trovato;
 		trovato = false;
 		for (Attrezzo attrezzo : this.attrezzi) {
+			if(attrezzo != null)
 			if (attrezzo.getNome().equals(nomeAttrezzo))
 				trovato = true;
 		}
@@ -155,6 +156,7 @@ public class Stanza {
 		Attrezzo attrezzoCercato;
 		attrezzoCercato = null;
 		for (Attrezzo attrezzo : this.attrezzi) {
+			if(attrezzo != null)
 			if (attrezzo.getNome().equals(nomeAttrezzo))
 				attrezzoCercato = attrezzo;
 		}
@@ -168,14 +170,21 @@ public class Stanza {
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
 		// TODO da implementare
-		for(int i=0; i<attrezzi.length; i++) {
-			if(attrezzi[i].getNome().equals(attrezzo.getNome())) {
-				attrezzi[i]=null;
-				numeroAttrezzi--;
-				return true;
+		if(attrezzo != null){
+			int i = 0;
+			for(Attrezzo a : this.attrezzi) {
+				if(a != null) {
+					if(a.getNome().equals(attrezzo.getNome())) {
+						this.attrezzi[i] = null;
+						this.numeroAttrezzi--;
+					}
+				}
+				i++;			
 			}
+			return true;
 		}
-		return false;
+		else
+			return false;
 	}
 
 

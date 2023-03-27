@@ -5,8 +5,8 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Labirinto {
 	
-	private Stanza stanzaCorrente;
-	private Stanza stanzaVincente;
+	public Stanza stanzaCorrente;
+	public Stanza stanzaVincente;
 
     public void creaStanze() {
 
@@ -49,7 +49,8 @@ public class Labirinto {
 	}
 
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.stanzaCorrente = stanzaCorrente;
+		if(stanzaCorrente != null)
+			this.stanzaCorrente = stanzaCorrente;
 	}
 
 	public Stanza getStanzaCorrente() {

@@ -17,6 +17,7 @@ public class Borsa {
 	}
 
 	public boolean addAttrezzo(Attrezzo attrezzo) {
+		if(attrezzo != null)
 		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())
 			return false;
 		if (this.numeroAttrezzi==10)
@@ -32,16 +33,19 @@ public class Borsa {
 
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-		for (int i= 0; i<this.numeroAttrezzi; i++)
-			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
-				a = attrezzi[i];
+		for (int i= 0; i<this.numeroAttrezzi; i++) {
+			if(attrezzi[i] != null)
+				if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
+					a = attrezzi[i];
+		}
 		return a;
 	}
 
 	public int getPeso() {
 		int peso = 0;
 		for (int i= 0; i<this.numeroAttrezzi; i++)
-			peso += this.attrezzi[i].getPeso();
+			if(attrezzi[i] != null)
+				peso += this.attrezzi[i].getPeso();
 
 		return peso;
 	}
@@ -56,14 +60,18 @@ public class Borsa {
 	
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-		// ---> TODO (implementare questo metodo) <---
-		if(nomeAttrezzo != null) {
-		for(int i = 0; i<attrezzi.length;i++) {
-			if(attrezzi[i].getNome().equals(nomeAttrezzo)) {
-				a = attrezzi[i];
-				attrezzi[i] = null;
-				numeroAttrezzi--;
-				}	
+
+		if(nomeAttrezzo!=null){
+			int i = 0;
+			for(Attrezzo att : this.attrezzi) {
+				if(att != null) {
+					if(att.getNome().equals(nomeAttrezzo)) {
+						a = att;
+						this.attrezzi[i] = null;
+						this.numeroAttrezzi--;
+					}
+				}
+				i++;
 			}
 		}
 		return a;
