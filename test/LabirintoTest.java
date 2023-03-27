@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import it.uniroma3.diadia.Stanza;
 import it.uniroma3.diadia.ambienti.Labirinto;
