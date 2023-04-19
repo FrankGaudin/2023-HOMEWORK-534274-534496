@@ -19,7 +19,8 @@ public class ComandoPrendi implements Comando{
 		partita.getLabirinto().getStanzaCorrente().removeAttrezzo(a);
 		io.mostraMessaggio("Hai raccolto: ");
 		io.mostraMessaggio(nomeAttrezzo);
-		} else {
+		} 
+		else {
 			io.mostraMessaggio("Non c'è un oggetto del genere");
 		}
 	}
