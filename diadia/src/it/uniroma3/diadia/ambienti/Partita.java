@@ -1,5 +1,4 @@
 package it.uniroma3.diadia.ambienti;
-import it.uniroma3.diadia.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 /**
@@ -49,7 +48,7 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || (giocatore.getCfu() == 0);
+		return finita || (giocatore.getCfu() == 0);
 	}
 
 	/**
