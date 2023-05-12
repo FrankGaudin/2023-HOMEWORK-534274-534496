@@ -1,9 +1,11 @@
 package it.uniroma3.diadia.giocatore;
+import java.util.List;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Borsa {
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;
-	private Attrezzo[] attrezzi;
+	private	List<Attrezzo> attrezzi;
 	private int numeroAttrezzi;
 	private int pesoMax;
 	public Borsa() {
@@ -12,7 +14,6 @@ public class Borsa {
 
 	public Borsa(int pesoMax) {
 		this.pesoMax = pesoMax;
-		this.attrezzi = new Attrezzo[10]; // speriamo bastino...
 		this.numeroAttrezzi = 0;
 	}
 
@@ -20,9 +21,7 @@ public class Borsa {
 		if(attrezzo != null)
 		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())
 			return false;
-		if (this.numeroAttrezzi==10)
-			return false;
-		this.attrezzi[this.numeroAttrezzi] = attrezzo;
+		attrezzi.add(attrezzo);
 		this.numeroAttrezzi++;
 		return true;
 	}
@@ -33,19 +32,18 @@ public class Borsa {
 
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-		for (int i= 0; i<this.numeroAttrezzi; i++) {
-			if(attrezzi[i] != null)
-				if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
-					a = attrezzi[i];
+		for(Attrezzo b : attrezzi) {
+			if(b.getNome().equals(nomeAttrezzo))
+				a=b;
 		}
 		return a;
 	}
 
 	public int getPeso() {
 		int peso = 0;
-		for (int i= 0; i<this.numeroAttrezzi; i++)
-			if(attrezzi[i] != null)
-				peso += this.attrezzi[i].getPeso();
+		for (int i= 0; i<this.attrezzi.size(); i++)
+			if(attrezzi.get(i) != null)
+				peso += this.attrezzi.get(i).getPeso();
 
 		return peso;
 	}
@@ -62,16 +60,14 @@ public class Borsa {
 		Attrezzo a = null;
 
 		if(nomeAttrezzo!=null){
-			int i = 0;
 			for(Attrezzo att : this.attrezzi) {
 				if(att != null) {
 					if(att.getNome().equals(nomeAttrezzo)) {
 						a = att;
-						this.attrezzi[i] = null;
+						att = null;
 						this.numeroAttrezzi--;
 					}
 				}
-				i++;
 			}
 		}
 		return a;
@@ -83,7 +79,7 @@ public class Borsa {
 		if (!this.isEmpty()) {
 			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
 			for (int i= 0; i<this.numeroAttrezzi; i++)
-				s.append(attrezzi[i].toString()+" ");
+				s.append(attrezzi.get(i).toString()+" ");
 		}
 		else
 			s.append("Borsa vuota");
