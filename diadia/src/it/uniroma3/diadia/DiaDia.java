@@ -38,16 +38,9 @@ public class DiaDia {
 
 	private Partita partita;
 	private IO io;
-	private Labirinto labirinto;
-
-	public DiaDia(IO console) {
-		this.partita = new Partita();
-		this.io = console;
-	}
 	
 	public DiaDia(Labirinto labirinto, IO console) {
-		this.labirinto = labirinto;
-		this.partita = new Partita();
+		this.partita = new Partita(labirinto);
 		this.io = console;
 	}
 
