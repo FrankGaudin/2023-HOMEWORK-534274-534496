@@ -9,6 +9,7 @@ public class StanzaTest {
 	
 	Stanza s1 = new Stanza("s1");
 	Stanza s2= new Stanza("s2");
+	Stanza s3= new Stanza("s3");
 	Attrezzo m = new Attrezzo("martello", 42);
 	
 	@Test
@@ -20,13 +21,16 @@ public class StanzaTest {
 	@Test
 	public void testImpostaStanzaAdiacente() {
 		s1.impostaStanzaAdiacente("sud", s2);
+		s1.impostaStanzaAdiacente("nord", s3);
 		assertEquals(s2, s1.getStanzaAdiacente("sud"));
+		assertEquals(s3, s1.getStanzaAdiacente("nord"));
+		
 	}
 	
 	@Test
-	public void testAddAttrezzo() {
-		
-		assertTrue(s1.addAttrezzo(m));
+	public void testHasAttrezzo() {
+		s1.addAttrezzo(m);
+		assertEquals(m, s1.hasAttrezzo("martello"));
 	}
 	
 

@@ -32,11 +32,10 @@ public class StanzaMagica extends Stanza {
 	}
 
 	@Override
-	public boolean addAttrezzo(Attrezzo attrezzo) {
+	public void addAttrezzo(Attrezzo attrezzo) {
 		if (this.contatoreAttrezziPosati>this.sogliaMagica)
 			attrezzo = this.modificaAttrezzo(attrezzo);
 		this.contatoreAttrezziPosati++;
-		return super.addAttrezzo(attrezzo);
 	}
 
 }

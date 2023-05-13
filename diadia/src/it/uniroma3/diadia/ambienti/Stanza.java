@@ -1,7 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,9 +21,8 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 public class Stanza {
 	
 	private String nome;
-    private Set<Attrezzo> attrezzi;
+    private Map<String,Attrezzo> attrezzi;
     private Map<String,Stanza> stanzeAdiacenti;
-	private Set<String> direzioni;
     
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -31,9 +30,8 @@ public class Stanza {
      */
     public Stanza(String nome) {
         this.nome = nome;
-        this.direzioni = new HashSet<>();
         this.stanzeAdiacenti = new HashMap<>();
-        this.attrezzi = new HashSet<>();
+        this.attrezzi = new HashMap<>();
     }
 
     /**
@@ -43,16 +41,8 @@ public class Stanza {
      * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
      */
     public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
-    	
-    	for(String i : direzioni) {
-
-    		if(i.equals(direzione)) {
-
-    			if(!(this.stanzeAdiacenti.containsKey(i))) 
-    				stanzeAdiacenti.put(direzione, stanza);
-
-    		}
-    	}
+    	if(!(this.stanzeAdiacenti.containsKey(direzione))) 
+    		stanzeAdiacenti.put(direzione, stanza);
     }
 
     /**
@@ -60,7 +50,6 @@ public class Stanza {
      * @param direzione
      */
 	public Stanza getStanzaAdiacente(String direzione) {
-		
         return this.stanzeAdiacenti.get(direzione);
 	}
 
@@ -84,8 +73,8 @@ public class Stanza {
      * Restituisce la collezione di attrezzi presenti nella stanza.
      * @return la collezione di attrezzi nella stanza.
      */
-    public Set<Attrezzo> getAttrezzi() {
-        return this.attrezzi;
+    public Collection<Attrezzo> getAttrezzi() {
+        return this.attrezzi.values();
     }
 
     /**
@@ -93,10 +82,8 @@ public class Stanza {
      * @param attrezzo l'attrezzo da mettere nella stanza.
      * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
      */
-    public void addAttrezzo(Attrezzo attrezzo) {
-        
-    	attrezzi.add(attrezzo);
-    
+    public void addAttrezzo(Attrezzo attrezzo) {        
+    	attrezzi.put(attrezzo.getNome(), attrezzo);    
     }
 
    /**
@@ -108,11 +95,11 @@ public class Stanza {
     	StringBuilder risultato = new StringBuilder();
     	risultato.append(this.nome);
     	risultato.append("\nUscite: ");
-    	for (String direzione : this.direzioni)
+    	for (String direzione : this.stanzeAdiacenti.keySet())
     		if (direzione!=null)
     			risultato.append(" " + direzione);
     	risultato.append("\nAttrezzi nella stanza: ");
-    	for (Attrezzo attrezzo : this.attrezzi) {
+    	for (Attrezzo attrezzo : this.attrezzi.values()) {
     		if(attrezzo!=null)
     			risultato.append(attrezzo.toString()+" ");
     	}
@@ -124,13 +111,9 @@ public class Stanza {
 	* @return true se l'attrezzo esiste nella stanza, false altrimenti.
 	*/
 	public boolean hasAttrezzo(String nomeAttrezzo) {
-		boolean trovato;
-		trovato = false;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if(attrezzo != null)
-			if (attrezzo.getNome().equals(nomeAttrezzo))
-				trovato = true;
-		}
+		boolean trovato = false;
+		if(attrezzi.containsKey(nomeAttrezzo))
+			trovato = true;
 		return trovato;
 	}
 
@@ -141,13 +124,10 @@ public class Stanza {
      * 		   null se l'attrezzo non e' presente.
 	 */
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
-		Attrezzo attrezzoCercato;
-		attrezzoCercato = null;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if(attrezzo != null)
-			if (attrezzo.getNome().equals(nomeAttrezzo))
-				attrezzoCercato = attrezzo;
-		}
+		Attrezzo attrezzoCercato = null;
+		if(this.attrezzi.containsKey(nomeAttrezzo))
+			attrezzoCercato = this.attrezzi.get(nomeAttrezzo);
+
 		return attrezzoCercato;	
 	}
 
@@ -158,12 +138,11 @@ public class Stanza {
 	 */
 	public void removeAttrezzo(Attrezzo attrezzo) {
 		// TODO da implementare
-		attrezzi.remove(attrezzo);
+		attrezzi.remove(attrezzo.getNome(), attrezzo);
 	}
 
 
 	public Set<String> getDirezioni() {
-		
 	    return this.stanzeAdiacenti.keySet();
     }
 
