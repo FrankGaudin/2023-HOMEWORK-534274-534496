@@ -15,16 +15,16 @@ public class Partita {
 	private Giocatore giocatore;
 	private boolean finita;
 	
-	public Partita(){
+	public Partita(Labirinto labirinto) {
+		this.labirinto=labirinto;
 		giocatore = new Giocatore();
-		labirinto = new Labirinto();
-		labirinto.creaStanze();
 		this.finita = false;
 	}
-
+	
     /**
      * Crea tutte le stanze e le porte di collegamento
      */
+	
 	public Labirinto getLabirinto(){
 		return labirinto;
 	}
