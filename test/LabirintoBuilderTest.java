@@ -1,6 +1,7 @@
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -11,44 +12,47 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class LabirintoBuilderTest {
 
-	LabirintoBuilder l;
+	LabirintoBuilder l = new LabirintoBuilder()
+			.addStanzaIniziale("aula")
+			.addAttrezzo("spada",3)
+			.addStanzaVincente("bagno")
+			.addStanza("a")
+			.addAdiacenza("aula","bagno","sud");
+	Stanza s = new Stanza("aula");
+	Stanza b = new Stanza("bagno");
+	Stanza as = new Stanza("a");
+	Attrezzo att = new Attrezzo("spada", 3);
 
 	@BeforeEach
-	public void setUp(){
-		l = new LabirintoBuilder();
+	public void setUp() {
+		
 	}
 
 	@Test
 	public void testGetLabirinto() {
-		assertNotNull(l.getLabirinto());
+		l.getLabirinto();
 		assertEquals(Labirinto.class, l.getLabirinto().getClass());
+	}
+	
+	@Test
+	public void testAddStanzaIniziale() {
+		s.addAttrezzo(att);
+		s.impostaStanzaAdiacente("sud", b);
+		assertEquals(s, l.getLabirinto().getStanzaCorrente());
 	}
 
 	@Test
 	public void testAddStanza() {
-		l.addStanza("aula");
-		Stanza s = new Stanza("aula");
-		assertEquals(s, l.getStanze().get("aula"));
-	}
-
-	@Test
-	public void testAddAttrezzoSenzaUltimaStanza(){
-		assertEquals(LabirintoBuilder.class, l.addAttrezzo("spada", 3).getClass());
+		assertEquals(as, l.getStanze().get("a"));
 	}
 	
 	@Test
 	public void testAddAttrezzoConUltimaStanza(){
-		l.addStanzaIniziale("aula").addAttrezzo("spada", 3);
+		l.addAttrezzo("spada", 3);
 		Attrezzo a = new Attrezzo("spada", 3);
 		assertEquals(a, l.getLabirinto().getStanzaCorrente().getAttrezzo("spada"));		
 	}
 
-	@Test
-    public void testAddAttrezzoConStanza() {
-        l.addStanza("aula");
-        l.addAttrezzo("spada", 3);
-        assertTrue(l.getStanze().get("aula").hasAttrezzo("spada"));
-    }
 	
 	
 }

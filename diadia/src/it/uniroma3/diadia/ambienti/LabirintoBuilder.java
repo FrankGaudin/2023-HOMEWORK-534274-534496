@@ -24,6 +24,10 @@ public class LabirintoBuilder {
 		return this.labirinto;
 	}
 	
+	public Stanza getUltima() {
+		return this.ultima;
+	}
+	
 	public void aggiunta(Stanza s) {
 		ultima = s;
 		stanze.put(s.getNome(), s);
