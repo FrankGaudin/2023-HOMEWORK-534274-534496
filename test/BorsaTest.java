@@ -2,13 +2,19 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerPeso;
 import it.uniroma3.diadia.giocatore.Borsa;
 
 class BorsaTest {
@@ -47,6 +53,32 @@ class BorsaTest {
             return true;
         }
     }
+    
+    public boolean controllaSet(Set<Attrezzo> s1, Set<Attrezzo> s2) {
+		if(s1.size() != s2.size())
+			return false;
+		Iterator<Attrezzo> iter = s1.iterator();
+		Iterator<Attrezzo> iter1 = s2.iterator();
+		while(iter.hasNext() && iter1.hasNext()) {
+			if(!iter.next().equals(iter1.next()))
+				return false;
+		}
+		return true;
+	}
+    
+    public boolean controllaMap(Map<Integer, Set<Attrezzo>> m1, Map<Integer, Set<Attrezzo>> m2) {
+		if(m1.size()!=m2.size())
+			return false;
+		
+		Iterator<Integer> iter1 = m1.keySet().iterator();
+		Iterator<Integer> iter2 = m2.keySet().iterator();
+		while(iter1.hasNext() && iter2.hasNext()) {
+			if(!this.controllaSet(m1.get(iter1.next()), m2.get(iter2.next()))) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	@Test
 	public void testIsEmpty() {
@@ -64,14 +96,13 @@ class BorsaTest {
 		this.b.addAttrezzo(spada);
 		assertTrue(b.hasAttrezzo("spada"));
 	}
+	
 	@Test
 	public void testGetPeso() {
 		b.addAttrezzo(pistola);
 		assertEquals(pistola, b.getAttrezzo("pistola"));
 	}
 	
-
-    
 	@Test
 	public void testOrdinatoPeso() {
 		bl.addAttrezzo(spada);
@@ -82,5 +113,38 @@ class BorsaTest {
 		l.add(cannone);
 		l.add(spadone);
 		assertTrue(controllaList(l,bl.getContenutoOrdinatoPerPeso()));
+	}
+	
+	@Test
+	public void testContenutoOrdinatoPerNome() {
+		SortedSet<Attrezzo> l = new TreeSet<Attrezzo>();
+		b.addAttrezzo(spada);
+		b.addAttrezzo(spadone);
+		l.add(spada);
+		l.add(spadone);
+		assertTrue(controllaSet(l, b.getContenutoOrdinatoPerNome()));
+		
+	}
+	
+	@Test
+	public void testGetContenutoRaggruppatoPerPeso() {
+		Map<Integer, Set<Attrezzo>> mappa = new TreeMap<>();
+		Set<Attrezzo> set = new TreeSet<>(new ComparatoreAttrezziPerPeso());
+		set.add(pistola);
+		set.add(spadone);
+		mappa.put(spada.getPeso(), set);
+		bl.addAttrezzo(pistola);
+		bl.addAttrezzo(spadone);
+		assertTrue(controllaMap(mappa, bl.getContenutoRaggruppatoPerPeso()));
+	}
+	
+	@Test
+	public void testGetSortedSetOrdinatoPerPeso() {
+		SortedSet<Attrezzo> s = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPeso());
+		s.add(spada);
+		s.add(cannone);
+		b.addAttrezzo(spada);
+		b.addAttrezzo(cannone);
+		assertTrue(controllaSet(s,b.getSortedSetOrdinatoPerPeso()));
 	}
 }
