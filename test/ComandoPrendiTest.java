@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.Partita;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.ComandoPrendi;
@@ -15,10 +16,14 @@ class ComandoPrendiTest {
 	IO io;
 	Partita p;
 	Attrezzo a;
+	LabirintoBuilder l;
 	
 	@BeforeEach
 	public void setUp() {
-		p = new Partita();
+		l = new LabirintoBuilder()
+				.addStanzaIniziale("bedroom")
+				.addStanzaVincente("bagno");
+		p = new Partita(l.getLabirinto());
 		c = new ComandoPrendi();
 		a = new Attrezzo("peluche",5);
 		io = new IOConsole();

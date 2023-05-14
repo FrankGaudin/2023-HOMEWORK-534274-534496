@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.Comando;
@@ -18,6 +19,7 @@ class ComandoVaiTest {
 	Comando c;
 	Partita p;
 	IO io;
+	LabirintoBuilder l;
 	
 	
 	@BeforeEach
@@ -25,7 +27,8 @@ class ComandoVaiTest {
 		s1 = new Stanza("aula 1");
 		s2 = new Stanza("aula 2");
 		c = new ComandoVai();
-		p = new Partita();
+		l = new LabirintoBuilder();
+		p = new Partita(l.getLabirinto());
 		IO io = new IOConsole();
 		c.setIo(io);
 	}

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
@@ -16,10 +17,11 @@ class ComandoPosaTest {
 	IO io;
 	Partita p;
 	Attrezzo a;
+	Labirinto l;
 	
 	@BeforeEach
 	public void setUp() {
-		p = new Partita();
+		p = new Partita(l);
 		c = new ComandoPosa();
 		a = new Attrezzo("peluche",5);
 		io = new IOConsole();

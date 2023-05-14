@@ -2,13 +2,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class PartitaTest {
 
-
-	Partita p = new Partita();
+	LabirintoBuilder l = new LabirintoBuilder()
+						.addStanzaVincente("Biblioteca")
+						.addStanzaIniziale("Stanza");
+	Partita p = new Partita(l.getLabirinto());
 	Stanza s = new Stanza("Stanza");
 	
 	@Test

@@ -111,12 +111,12 @@ public class Borsa {
 	}
 	
 	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
-		Map<Integer, Set<Attrezzo>> m = new HashMap<Integer, Set<Attrezzo>>();
+		Map<Integer, Set<Attrezzo>> m = new TreeMap<Integer, Set<Attrezzo>>();
 		for(Attrezzo a : attrezzi.values()) {
 			if(m.containsKey(a.getPeso())) {
 				m.get(a.getPeso()).add(a);
 			} else {
-				Set<Attrezzo> l = new HashSet<Attrezzo>();
+				Set<Attrezzo> l = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPeso());
 				l.add(a);
 				m.put(a.getPeso(), l);
 			}
@@ -125,7 +125,7 @@ public class Borsa {
 	}
 	
 	public SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso(){
-		SortedSet<Attrezzo> l = new TreeSet<Attrezzo>();
+		SortedSet<Attrezzo> l = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPeso());
 		l.addAll(attrezzi.values());
 		return l;
 	}
