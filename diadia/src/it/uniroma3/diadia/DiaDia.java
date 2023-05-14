@@ -1,10 +1,8 @@
 package it.uniroma3.diadia;
 
 
-
-import java.util.Scanner;
-
 import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -33,8 +31,6 @@ public class DiaDia {
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
-
 	private Partita partita;
 	private IO io;
 	
@@ -45,7 +41,6 @@ public class DiaDia {
 
 	public void gioca() {
 		String istruzione; 
-		Scanner scannerDiLinee;
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do {
 			istruzione = io.leggiRiga();
@@ -64,19 +59,6 @@ public class DiaDia {
 		FabbricaDiComandiFisarmonica fabbrica = new FabbricaDiComandiFisarmonica(this.io);
 		comandoDaEseguire = fabbrica.costruisci(istruzione);
 		comandoDaEseguire.esegui(this.partita);
-		/*if (comandoDaEseguire.getNome().equals("fine")) {
-			this.fine(); 
-			return true;
-		} else if (comandoDaEseguire.getNome().equals("vai"))
-			this.vai(comandoDaEseguire.getParametro());
-		else if (comandoDaEseguire.getNome().equals("aiuto"))
-			this.aiuto();
-		else if (comandoDaEseguire.getNome().equals("prendi"))
-			this.prendi(comandoDaEseguire.getParametro());
-		else if (comandoDaEseguire.getNome().equals("posa"))
-			this.posa(comandoDaEseguire.getParametro());
-		else
-			io.mostraMessaggio("Comando sconosciuto"); */
 		if (this.partita.vinta()) {
 			io.mostraMessaggio("Hai vinto!");
 			return true;
@@ -151,7 +133,11 @@ public class DiaDia {
 
 	public static void main(String[] argc) {
 		IO console = new IOConsole();
-		Labirinto labirinto = new Labirinto();
+		Labirinto labirinto = new LabirintoBuilder().addStanzaIniziale("Atrio")
+				.addAttrezzo("martello", 3)
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("Atrio", "Biblioteca", "nord")
+				.getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto, console);
 		gioco.gioca();
 	}

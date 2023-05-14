@@ -13,7 +13,7 @@ public class LabirintoBuilder {
 	
 	public LabirintoBuilder(){
 		this.labirinto = new Labirinto();
-		this.stanze = new HashMap<>();
+		this.stanze = new HashMap<String, Stanza>();
 	}
 	
 	public Map<String, Stanza> getStanze(){

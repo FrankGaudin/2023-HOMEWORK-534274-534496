@@ -18,7 +18,7 @@ class ComandoPrendiTest {
 	
 	@BeforeEach
 	public void setUp() {
-		p = new Partita();
+		p = new Partita(l);
 		c = new ComandoPrendi();
 		a = new Attrezzo("peluche",5);
 		io = new IOConsole();

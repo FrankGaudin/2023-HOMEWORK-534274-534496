@@ -20,9 +20,14 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Stanza {
 	
+	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
+	private static final int NUMERO_MASSIMO_ATTREZZI = 10;
+	
 	private String nome;
     private Map<String,Attrezzo> attrezzi;
+	private int numeroAttrezzi;
     private Map<String,Stanza> stanzeAdiacenti;
+	private int numeroStanzeAdiacenti;
     
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -30,6 +35,8 @@ public class Stanza {
      */
     public Stanza(String nome) {
         this.nome = nome;
+		this.numeroStanzeAdiacenti = 0;
+		this.numeroAttrezzi = 0;
         this.stanzeAdiacenti = new HashMap<>();
         this.attrezzi = new HashMap<>();
     }
@@ -41,8 +48,16 @@ public class Stanza {
      * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
      */
     public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
-    	if(!(this.stanzeAdiacenti.containsKey(direzione))) 
+    	boolean fatto = false;
+    	if(this.stanzeAdiacenti.containsKey(direzione)) { 
     		stanzeAdiacenti.put(direzione, stanza);
+    		fatto = true;
+    	}
+    	if(!fatto)
+    		if(this.numeroStanzeAdiacenti < NUMERO_MASSIMO_DIREZIONI) {
+    			this.stanzeAdiacenti.put(direzione, stanza);
+    			this.numeroStanzeAdiacenti++;
+    		}
     }
 
     /**
@@ -50,7 +65,11 @@ public class Stanza {
      * @param direzione
      */
 	public Stanza getStanzaAdiacente(String direzione) {
-        return this.stanzeAdiacenti.get(direzione);
+		Stanza stanza = null;
+		if(this.stanzeAdiacenti.containsKey(direzione)) {
+			stanza = this.stanzeAdiacenti.get(direzione);
+		}
+        return stanza;
 	}
 
     /**
@@ -82,8 +101,15 @@ public class Stanza {
      * @param attrezzo l'attrezzo da mettere nella stanza.
      * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
      */
-    public void addAttrezzo(Attrezzo attrezzo) {        
-    	attrezzi.put(attrezzo.getNome(), attrezzo);    
+    public boolean addAttrezzo(Attrezzo attrezzo) {
+    	if(attrezzo != null && this.numeroAttrezzi < NUMERO_MASSIMO_ATTREZZI) {
+    		attrezzi.put(attrezzo.getNome(), attrezzo);
+    		this.numeroAttrezzi++;
+    		return true;
+    	} else {
+    		return false;
+    	}
+    	   
     }
 
    /**
@@ -95,14 +121,9 @@ public class Stanza {
     	StringBuilder risultato = new StringBuilder();
     	risultato.append(this.nome);
     	risultato.append("\nUscite: ");
-    	for (String direzione : this.stanzeAdiacenti.keySet())
-    		if (direzione!=null)
-    			risultato.append(" " + direzione);
+    	risultato.append(this.getDirezioni().toString());
     	risultato.append("\nAttrezzi nella stanza: ");
-    	for (Attrezzo attrezzo : this.attrezzi.values()) {
-    		if(attrezzo!=null)
-    			risultato.append(attrezzo.toString()+" ");
-    	}
+    	risultato.append(this.getAttrezzi().toString());
     	return risultato.toString();
     }
 
@@ -111,10 +132,7 @@ public class Stanza {
 	* @return true se l'attrezzo esiste nella stanza, false altrimenti.
 	*/
 	public boolean hasAttrezzo(String nomeAttrezzo) {
-		boolean trovato = false;
-		if(attrezzi.containsKey(nomeAttrezzo))
-			trovato = true;
-		return trovato;
+		return attrezzi.containsKey(nomeAttrezzo);
 	}
 
 	/**
@@ -127,7 +145,6 @@ public class Stanza {
 		Attrezzo attrezzoCercato = null;
 		if(this.attrezzi.containsKey(nomeAttrezzo))
 			attrezzoCercato = this.attrezzi.get(nomeAttrezzo);
-
 		return attrezzoCercato;	
 	}
 
@@ -136,14 +153,36 @@ public class Stanza {
 	 * @param nomeAttrezzo
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
-	public void removeAttrezzo(Attrezzo attrezzo) {
+	public boolean removeAttrezzo(Attrezzo attrezzo) {
 		// TODO da implementare
+		if(attrezzo != null) {
 		attrezzi.remove(attrezzo.getNome(), attrezzo);
+		return true;
+		} else
+			return false;
 	}
 
 
 	public Set<String> getDirezioni() {
 	    return this.stanzeAdiacenti.keySet();
     }
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Stanza that = (Stanza) obj;
+		return this.getNome().equals(that.getNome());
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.nome.hashCode();
+		}
 
 }

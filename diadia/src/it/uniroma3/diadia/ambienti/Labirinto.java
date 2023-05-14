@@ -7,7 +7,10 @@ public class Labirinto {
 	public Stanza stanzaCorrente;
 	public Stanza stanzaVincente;
 
-    
+    public static LabirintoBuilder newBuilder() {
+    	return new LabirintoBuilder();
+    }
+	
     public void setStanzaVincente(Stanza stanzaVincente) {
     	this.stanzaVincente = stanzaVincente;
     }

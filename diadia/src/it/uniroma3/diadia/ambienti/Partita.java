@@ -48,7 +48,7 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || (giocatore.getCfu() == 0);
+		return finita || vinta () || (giocatore.getCfu() == 0);
 	}
 
 	/**

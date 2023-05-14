@@ -16,7 +16,6 @@ public class LabirintoTest {
 	@Before
 	public void setUp() {
 		l = new Labirinto();
-		l.creaStanze();
 		s1 = new Stanza("N11");
 		s2 = new Stanza("N10");
 	}
