@@ -26,7 +26,7 @@ public class Stanza {
 	private String nome;
     private Map<String,Attrezzo> attrezzi;
 	private int numeroAttrezzi;
-    private Map<String,Stanza> stanzeAdiacenti;
+    private Map<Direzione,Stanza> stanzeAdiacenti;
 	private int numeroStanzeAdiacenti;
     
     /**
@@ -47,7 +47,7 @@ public class Stanza {
      * @param direzione direzione in cui sara' posta la stanza adiacente.
      * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
      */
-    public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
+    public void impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
     	boolean fatto = false;
     	if(this.stanzeAdiacenti.containsKey(direzione)) { 
     		stanzeAdiacenti.put(direzione, stanza);
@@ -64,7 +64,7 @@ public class Stanza {
      * Restituisce la stanza adiacente nella direzione specificata
      * @param direzione
      */
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		Stanza stanza = null;
 		if(this.stanzeAdiacenti.containsKey(direzione)) {
 			stanza = this.stanzeAdiacenti.get(direzione);
@@ -163,7 +163,7 @@ public class Stanza {
 	}
 
 
-	public Set<String> getDirezioni() {
+	public Set<Direzione> getDirezioni() {
 	    return this.stanzeAdiacenti.keySet();
     }
 	

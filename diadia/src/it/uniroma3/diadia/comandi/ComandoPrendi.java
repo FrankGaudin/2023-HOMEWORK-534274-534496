@@ -1,14 +1,11 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPrendi implements Comando{
+public class ComandoPrendi extends AbstractComando{
 	
 	private String nomeAttrezzo;
-	private IO io;
 	private final static String NOME = "prendi";
 
 	@Override
@@ -17,28 +14,12 @@ public class ComandoPrendi implements Comando{
 		Attrezzo a = partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 		partita.getGiocatore().getBorsa().addAttrezzo(a);
 		partita.getLabirinto().getStanzaCorrente().removeAttrezzo(a);
-		io.mostraMessaggio("Hai raccolto: ");
-		io.mostraMessaggio(nomeAttrezzo);
+		this.getIo().mostraMessaggio("Hai raccolto: ");
+		this.getIo().mostraMessaggio(nomeAttrezzo);
 		} 
 		else {
-			io.mostraMessaggio("Non c'è un oggetto del genere");
+			this.getIo().mostraMessaggio("Non c'è un oggetto del genere");
 		}
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro;
-	}
-
-	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
-	}
-
-	@Override
-	public void setIo(IO io) {
-		this.io = io;
-		
 	}
 
 	@Override
