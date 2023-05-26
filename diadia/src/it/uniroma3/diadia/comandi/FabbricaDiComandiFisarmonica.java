@@ -41,6 +41,12 @@ public class FabbricaDiComandiFisarmonica {
 		comando = new ComandoFine();
 	else if (nomeComando.equals("guarda"))
 		comando = new ComandoGuarda();
+	else if (nomeComando.equals("regala"))
+		comando = new ComandoRegala();
+	else if (nomeComando.equals("saluta"))
+		comando = new ComandoSaluta();
+	else if (nomeComando.equals("interagisci"))
+		comando = new ComandoInteragisci();
 	else comando = new ComandoNonValido();
 	
 	comando.setIo(this.io);

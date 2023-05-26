@@ -59,7 +59,7 @@ public class CaricatoreLabirinto {
 	private static final String USCITE_MARKER = "Uscite:";
 
 	/*
-	 *  Esempio di un possibile file di specifica di un labirinto (vedi POO-26-eccezioni-file.pdf)
+	 *  Esempio di un possibile file di specifica di un labirinto 
 
 		Stanze: biblioteca, N10, N11
 		Inizio: N10

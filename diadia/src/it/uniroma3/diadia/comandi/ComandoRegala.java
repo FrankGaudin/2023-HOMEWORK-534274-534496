@@ -11,10 +11,9 @@ public class ComandoRegala extends AbstractComando{
 	public void esegui(Partita partita) {
 		Attrezzo a;
 		
-		if(this.getParametro() == null)
-			this.getIo().mostraMessaggio("Cosa posso dare..");
-		
-		if(partita.getGiocatore().getBorsa().hasAttrezzo(this.getParametro())) {
+		if(this.getParametro() == null) {
+			this.getIo().mostraMessaggio("Non hai selezionato cosa dare");
+		} else if(partita.getGiocatore().getBorsa().hasAttrezzo(this.getParametro())) {
 			a = partita.getGiocatore().getBorsa().getAttrezzo(this.getParametro());
 			partita.getLabirinto().getStanzaCorrente().getPersonaggio().riceviRegalo(a, partita);
 			partita.getGiocatore().getBorsa().removeAttrezzo(this.getParametro());

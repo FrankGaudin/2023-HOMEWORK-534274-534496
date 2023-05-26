@@ -125,6 +125,7 @@ public class StanzaProtected {
 	 * @param nomeAttrezzo
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
+	@SuppressWarnings("unlikely-arg-type")
 	public void removeAttrezzo(Attrezzo attrezzo) {
 		// TODO da implementare
 		attrezzi.remove(attrezzo);

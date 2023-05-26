@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -41,7 +41,7 @@ public class DiaDia {
 		this.io = console;
 	}
 
-	public void gioca() {
+	public void gioca() throws Exception{
 		String istruzione; 
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do {
@@ -56,10 +56,18 @@ public class DiaDia {
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 */
-	private boolean processaIstruzione(String istruzione) {
+	
+	private boolean processaIstruzione(String istruzione) throws Exception {
 		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica fabbrica = new FabbricaDiComandiFisarmonica(this.io);
-		comandoDaEseguire = fabbrica.costruisci(istruzione);
+		FabbricaDiComandiRiflessiva fabbrica = new FabbricaDiComandiRiflessiva(this.io);
+		try {
+			comandoDaEseguire = fabbrica.costruisciComando(istruzione);
+		} catch(NullPointerException e) {
+			comandoDaEseguire = fabbrica.costruisciComando("Non valido");
+		} catch(ClassNotFoundException ce) {
+			comandoDaEseguire = fabbrica.costruisciComando("Non valido");
+		}
+		
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta()) {
 			io.mostraMessaggio("Hai vinto!");
@@ -68,7 +76,8 @@ public class DiaDia {
 			io.mostraMessaggio("Grazie per aver giocato.");
 		}
 			return false;
-	} 
+	}
+	
 
 	// implementazioni dei comandi dell'utente:
 
@@ -135,7 +144,7 @@ public class DiaDia {
 		io.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
 	} */
 
-	public static void main(String[] argc) throws FileNotFoundException, FormatoFileNonValidoException {
+	public static void main(String[] argc) throws Exception {
 		Scanner scanner = new Scanner(System.in);
 		IO console = new IOConsole(scanner);
 		Labirinto labirinto = Labirinto.newBuilder("file.txt").getLabirinto();

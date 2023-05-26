@@ -8,7 +8,7 @@ public class StanzaMagica extends Stanza {
 
 	private int sogliaMagica;
 
-	private static final int SOGLIA_MAGICA_DEFAULT = 1;
+	private static final int SOGLIA_MAGICA_DEFAULT = 0;
 
 	public StanzaMagica(String nome) {
 		this(nome, SOGLIA_MAGICA_DEFAULT);

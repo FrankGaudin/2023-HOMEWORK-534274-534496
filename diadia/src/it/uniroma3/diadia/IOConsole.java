@@ -16,7 +16,6 @@ public class IOConsole implements IO{
 
 	public String leggiRiga() {
 		String riga = scannerDiLinee.nextLine();
-		//scannerDiLinee.close();
 		return riga;
 	}
 }

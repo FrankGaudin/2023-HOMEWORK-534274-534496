@@ -1,9 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Set;
-import java.util.HashSet;
 import java.util.SortedSet;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -128,5 +126,11 @@ public class Borsa {
 		SortedSet<Attrezzo> l = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPeso());
 		l.addAll(attrezzi.values());
 		return l;
+	}
+
+	public boolean getPesoRimanente(Attrezzo a) {
+		if(a != null && this.getPesoMax()-this.getPeso()>=a.getPeso())
+			return true;
+		return false; 
 	}
 }

@@ -1,9 +1,9 @@
 package it.uniroma3.diadia.ambienti;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -52,6 +52,12 @@ public class Stanza {
     public AbstractPersonaggio getPersonaggio() {
     	return this.personaggio;
     }
+    
+    public boolean hasPersonaggio() {
+    	if(personaggio != null)
+    		return true;
+    	return false;
+    }
 
     /**
      * Imposta una stanza adiacente.
@@ -85,8 +91,28 @@ public class Stanza {
 	}
 	
 	public List<Stanza> getStanzeAdiacenti(){
-		return (List<Stanza>) stanzeAdiacenti.values();
+		List<Stanza> listaStanzeAdiacenti = new ArrayList<>();
+		for (Stanza s : stanzeAdiacenti.values()) {
+			listaStanzeAdiacenti.add(s);
 		}
+		return listaStanzeAdiacenti;
+		}
+	
+	public void setStanzeAdiacenti(Map<Direzione, Stanza> stanzeAdiacenti) {
+		this.stanzeAdiacenti = stanzeAdiacenti;
+	}
+	
+	public int getNumeroStanzeAdiacenti() {
+		return numeroStanzeAdiacenti;
+	}
+	
+	public void setNumeroStanzeAdiacenti(int numeroStanzeAdiacenti) {
+		this.numeroStanzeAdiacenti = numeroStanzeAdiacenti;
+	}
+	
+	public int getNumeroAttrezziPossibili() {
+		return NUMERO_MASSIMO_ATTREZZI-this.numeroAttrezzi;
+	}
 
     /**
      * Restituisce la nome della stanza.
@@ -115,6 +141,10 @@ public class Stanza {
     public int getNumeroAttrezzi() {
     	return numeroAttrezzi;
     }
+    
+	public void setNumeroAttrezzi(int numeroAttrezzi) {
+		this.numeroAttrezzi = numeroAttrezzi;
+	}
 
     /**
      * Mette un attrezzo nella stanza.
@@ -123,7 +153,7 @@ public class Stanza {
      */
     public boolean addAttrezzo(Attrezzo attrezzo) {
     	if(attrezzo != null && this.numeroAttrezzi < NUMERO_MASSIMO_ATTREZZI) {
-    		attrezzi.put(attrezzo.getNome(), attrezzo);
+    		this.attrezzi.put(attrezzo.getNome(), attrezzo);
     		this.numeroAttrezzi++;
     		return true;
     	} else {

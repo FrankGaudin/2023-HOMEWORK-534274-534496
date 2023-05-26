@@ -5,21 +5,21 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendi extends AbstractComando{
 	
-	private String nomeAttrezzo;
 	private final static String NOME = "prendi";
 
 	@Override
 	public void esegui(Partita partita) {
-		if(partita.getLabirinto().getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
-		Attrezzo a = partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
-		partita.getGiocatore().getBorsa().addAttrezzo(a);
-		partita.getLabirinto().getStanzaCorrente().removeAttrezzo(a);
-		this.getIo().mostraMessaggio("Hai raccolto: ");
-		this.getIo().mostraMessaggio(nomeAttrezzo);
-		} 
-		else {
-			this.getIo().mostraMessaggio("Non c'è un oggetto del genere");
-		}
+		Attrezzo a = partita.getLabirinto().getStanzaCorrente().getAttrezzo(this.getParametro());
+		if(a==null) {
+			this.getIo().mostraMessaggio("Non c'è questo attrezzo nella stanza");
+		} else {
+			if(partita.getGiocatore().getBorsa().getPesoRimanente(a)) {
+				partita.getGiocatore().getBorsa().addAttrezzo(a);
+				partita.getLabirinto().getStanzaCorrente().removeAttrezzo(a);
+			} 
+			else
+				this.getIo().mostraMessaggio("Attrezzo troppo pesante");
+			}
 	}
 
 	@Override

@@ -16,8 +16,9 @@ public class StanzaBloccata extends Stanza{
 	public String getDescrizione() {
 		String bloccata = "C'è una stanza bloccata a: " + direzioneBloccata +"\nProva a posare: " + pass;
 		
-		if(!this.hasAttrezzo(pass))
+		if(!this.hasAttrezzo(pass)) {
 			return bloccata;
+		}
 		return super.getDescrizione();
 	}
 	

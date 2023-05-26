@@ -4,7 +4,7 @@ import it.uniroma3.diadia.ambienti.Partita;
 
 public class ComandoAiuto extends AbstractComando {
 
-	static final public String[] ELENCO_COMANDI = {"vai", "aiuto", "fine","prendi", "posa", "guarda"};
+	static final public String[] ELENCO_COMANDI = {"vai", "aiuto", "fine","prendi", "posa", "guarda", "saluta", "regala", "interagisci"};
 	private final static String NOME = "aiuto";
 
 	@Override

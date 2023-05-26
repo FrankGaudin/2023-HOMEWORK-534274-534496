@@ -12,6 +12,8 @@ public class ComandoGuarda extends AbstractComando{
 		this.getIo().mostraMessaggio("Disponi ancora di:" + partita.getGiocatore().getCfu() + "CFU");
 		this.getIo().mostraMessaggio("Borsa:");
 		this.getIo().mostraMessaggio(partita.getGiocatore().getBorsa().toString());
+		if(partita.getLabirinto().getStanzaCorrente().hasPersonaggio())
+			this.getIo().mostraMessaggio("C'è qualcuno nella stanza..");
 		
 	}
 
