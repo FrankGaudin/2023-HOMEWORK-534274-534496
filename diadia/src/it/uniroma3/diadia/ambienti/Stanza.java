@@ -1,11 +1,14 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -28,6 +31,7 @@ public class Stanza {
 	private int numeroAttrezzi;
     private Map<Direzione,Stanza> stanzeAdiacenti;
 	private int numeroStanzeAdiacenti;
+	private AbstractPersonaggio personaggio;
     
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -39,6 +43,14 @@ public class Stanza {
 		this.numeroAttrezzi = 0;
         this.stanzeAdiacenti = new HashMap<>();
         this.attrezzi = new HashMap<>();
+    }
+    
+    public void setPersonaggio(AbstractPersonaggio personaggio) {
+    	this.personaggio = personaggio;
+    }
+
+    public AbstractPersonaggio getPersonaggio() {
+    	return this.personaggio;
     }
 
     /**
@@ -71,6 +83,10 @@ public class Stanza {
 		}
         return stanza;
 	}
+	
+	public List<Stanza> getStanzeAdiacenti(){
+		return (List<Stanza>) stanzeAdiacenti.values();
+		}
 
     /**
      * Restituisce la nome della stanza.
@@ -94,6 +110,10 @@ public class Stanza {
      */
     public Collection<Attrezzo> getAttrezzi() {
         return this.attrezzi.values();
+    }
+    
+    public int getNumeroAttrezzi() {
+    	return numeroAttrezzi;
     }
 
     /**

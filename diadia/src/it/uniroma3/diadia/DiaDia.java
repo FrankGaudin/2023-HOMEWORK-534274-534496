@@ -2,7 +2,9 @@ package it.uniroma3.diadia;
 
 
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -72,6 +74,8 @@ public class DiaDia {
 
 	/**
 	 * Stampa informazioni di aiuto.
+	 * @throws FormatoFileNonValidoException 
+	 * @throws FileNotFoundException 
 	 */
 	/*private void aiuto() {
 		for(int i=0; i< elencoComandi.length; i++) 
@@ -131,14 +135,12 @@ public class DiaDia {
 		io.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
 	} */
 
-	public static void main(String[] argc) {
-		IO console = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder().addStanzaIniziale("Atrio")
-				.addAttrezzo("martello", 3)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("Atrio", "Biblioteca", "nord")
-				.getLabirinto();
+	public static void main(String[] argc) throws FileNotFoundException, FormatoFileNonValidoException {
+		Scanner scanner = new Scanner(System.in);
+		IO console = new IOConsole(scanner);
+		Labirinto labirinto = Labirinto.newBuilder("file.txt").getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto, console);
 		gioco.gioca();
+		scanner.close();
 	}
 }
