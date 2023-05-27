@@ -1,18 +1,21 @@
+package comandiTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
-import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.ComandoPosa;
+import it.uniroma3.diadia.comandi.ComandoPrendi;
 
-class ComandoPosaTest {
-	
+class ComandoPrendiTest {
 	Comando c;
 	IO io;
 	Partita p;
@@ -20,11 +23,12 @@ class ComandoPosaTest {
 	Labirinto l;
 	
 	@BeforeEach
-	public void setUp() {
+	public void setUp() throws Exception{
+		l = Labirinto.newBuilder("file.txt").getLabirinto();
 		p = new Partita(l);
-		c = new ComandoPosa();
+		c = new ComandoPrendi();
 		a = new Attrezzo("peluche",5);
-		io = new IOConsole();
+		io = new IOConsole(new Scanner(System.in));
 		c.setIo(io);
 	}
 	
@@ -36,23 +40,32 @@ class ComandoPosaTest {
 	
 	@Test
 	public void testGetNome() {
-		assertEquals("posa",c.getNome());
+		assertEquals("prendi",c.getNome());
 	}
 	
 	@Test
-	public void testAttrezzoPosato() {
-		p.getGiocatore().getBorsa().addAttrezzo(a);
+	public void testAttrezzoPreso() {
+		p.getLabirinto().getStanzaCorrente().addAttrezzo(a);	
 		c.setParametro(a.getNome());
 		c.esegui(p);
+		assertTrue(p.getGiocatore().getBorsa().hasAttrezzo("peluche"));
+		assertFalse(p.getLabirinto().getStanzaCorrente().hasAttrezzo(a.getNome()));
+	}
+	
+	@Test
+	public void testAttrezzoNonPreso() {
+		p.getLabirinto().getStanzaCorrente().addAttrezzo(a);
+		c.esegui(p);
+		assertFalse(p.getGiocatore().getBorsa().hasAttrezzo("peluche"));
 		assertTrue(p.getLabirinto().getStanzaCorrente().hasAttrezzo(a.getNome()));
 	}
 	
 	@Test
-	public void testAttrezzoNonPosato() {
+	public void testAttrezzoNonPresente() {
 		c.setParametro(a.getNome());
 		c.esegui(p);
 		assertFalse(p.getLabirinto().getStanzaCorrente().hasAttrezzo(a.getNome()));
 	}
-
 	
+
 }

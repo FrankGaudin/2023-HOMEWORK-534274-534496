@@ -8,11 +8,13 @@ import java.util.Collections;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import it.uniroma3.diadia.InizializzaDati;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerPeso;
 
 public class Borsa {
-	public final static int DEFAULT_PESO_MAX_BORSA = 10;
+	static final private int DEFAULT_PESO_MAX_BORSA = InizializzaDati.getCFU();
+	//public final static int DEFAULT_PESO_MAX_BORSA = 10;
 	private	Map<String, Attrezzo> attrezzi;
 	private int numeroAttrezzi;
 	private int pesoMax;
