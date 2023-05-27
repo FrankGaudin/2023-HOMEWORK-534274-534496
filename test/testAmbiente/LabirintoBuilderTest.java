@@ -6,16 +6,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class LabirintoBuilderTest {
 
-	LabirintoBuilder l;
+	Labirinto.LabirintoBuilder l;
 
 	@Before
-	public void setUp() {
-		l = new LabirintoBuilder();
+	public void setUp() throws Exception{
+		l = new LabirintoBuilder("bilocale.txt");
 	}
 
 	@Test
@@ -41,7 +41,7 @@ public class LabirintoBuilderTest {
 	@Test
 	public void testAddAttrezzoConUltimaStanza(){
 		l.addStanza("stanzetta");
-        l.addAttrezzo("cacciavite", 3);
+        l.addAttrezzo("cacciavite", 3, "stanzetta");
         assertTrue(l.getStanze().get("stanzetta").hasAttrezzo("cacciavite"));
     }
 

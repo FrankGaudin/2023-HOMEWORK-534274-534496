@@ -206,7 +206,7 @@ public class Stanza {
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
 		// TODO da implementare
 		if(attrezzo != null) {
-		attrezzi.remove(attrezzo.getNome(), attrezzo);
+		attrezzi.remove(attrezzo.getNome());
 		return true;
 		} else
 			return false;

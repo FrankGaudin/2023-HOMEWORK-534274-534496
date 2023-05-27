@@ -69,17 +69,11 @@ public class Borsa {
 	
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-
-		if(nomeAttrezzo!=null){
-			for(Attrezzo att : this.attrezzi.values()) {
-				if(att != null) {
-					if(att.getNome().equals(nomeAttrezzo)) {
-						a = att;
-						att = null;
-						this.numeroAttrezzi--;
-					}
-				}
-			}
+		
+		if(attrezzi.containsKey(nomeAttrezzo)) {
+			a = attrezzi.get(nomeAttrezzo);
+			attrezzi.remove(nomeAttrezzo);
+			numeroAttrezzi--;
 		}
 		return a;
 	}

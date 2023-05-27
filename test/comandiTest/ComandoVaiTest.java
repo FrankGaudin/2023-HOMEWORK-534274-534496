@@ -1,10 +1,14 @@
 package comandiTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Direzione;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.Comando;
@@ -20,32 +24,30 @@ class ComandoVaiTest {
 	Comando c;
 	Partita p;
 	IO io;
-	LabirintoBuilder l;
+	Labirinto l;
 	
 	
 	@BeforeEach
-	public void setUp() {
-		s1 = new Stanza("aula 1");
-		s2 = new Stanza("aula 2");
+	public void setUp() throws Exception{
+		Scanner scan = new Scanner(System.in);
+		s1 = new Stanza("biblioteca");
+		s2 = new Stanza("N10");
+		s1.impostaStanzaAdiacente(Direzione.valueOf("nord"), s1);
 		c = new ComandoVai();
-		l = new LabirintoBuilder();
-		p = new Partita(l.getLabirinto());
-		IO io = new IOConsole();
+		l = Labirinto.newBuilder("bilocale.txt").getLabirinto();
+		p = new Partita(l);
+		IO io = new IOConsole(scan);
 		c.setIo(io);
 	}
 	
 	@Test
 	public void testVaiNull() {
-		p.getLabirinto().setStanzaCorrente(s1);
-		c.esegui(p);
 		assertEquals(s1, p.getLabirinto().getStanzaCorrente());
 	}
 	
 	@Test
 	public void testVaiDirezione() {
-		p.getLabirinto().setStanzaCorrente(s1);
-		s1.impostaStanzaAdiacente("sud", s2);
-		c.setParametro("sud");
+		c.setParametro("nord");
 		c.esegui(p);
 		assertEquals(s2, p.getLabirinto().getStanzaCorrente());
 	}

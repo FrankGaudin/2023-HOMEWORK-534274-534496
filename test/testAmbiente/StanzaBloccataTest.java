@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.ambienti.StanzaBloccata;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -14,11 +15,11 @@ class StanzaBloccataTest {
 	Stanza s1;
 	
 	@BeforeEach
-	public void setUp() {
-		s = new StanzaBloccata("Stanza Bloccata", "nord","ascia");
+	public void setUp() throws Exception{
+		s = new StanzaBloccata("Stanza Bloccata", Direzione.valueOf("nord"),"ascia");
 		a = new Attrezzo("ascia", 6);
 		s1 = new Stanza("aula 1");
-		s.impostaStanzaAdiacente("nord", s1);
+		s.impostaStanzaAdiacente(Direzione.valueOf("nord"), s1);
 	}
 	
 	@Test
@@ -34,12 +35,12 @@ class StanzaBloccataTest {
 	
 	@Test
 	public void testGetStanzaAdiacente1() {
-		assertEquals(s, s.getStanzaAdiacente("nord"));
+		assertEquals(s, s.getStanzaAdiacente(Direzione.valueOf("nord")));
 	}
 	
 	@Test
 	public void testGetStanzaAdiacenteDirezioneBloccata() {
 		s.addAttrezzo(a);
-		assertEquals(s1, s.getStanzaAdiacente("nord"));
+		assertEquals(s1, s.getStanzaAdiacente(Direzione.valueOf("nord")));
 	}
 }

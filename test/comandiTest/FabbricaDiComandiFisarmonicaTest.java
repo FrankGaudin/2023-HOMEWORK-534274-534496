@@ -1,6 +1,9 @@
 package comandiTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +23,8 @@ class FabbricaDiComandiFisarmonicaTest {
 	
 	@BeforeEach
 	public void setUp() {
-		io = new IOConsole();
+		Scanner scan = new Scanner(System.in);
+		io = new IOConsole(scan);
 		f = new FabbricaDiComandiFisarmonica(io);
 	}
 

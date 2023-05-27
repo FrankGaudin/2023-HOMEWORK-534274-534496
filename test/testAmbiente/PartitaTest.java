@@ -1,23 +1,31 @@
 package testAmbiente;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class PartitaTest {
+	
+	Labirinto l;
+	Partita p;
+	Stanza s;
+	
+	@BeforeEach
+	public void setUp() throws Exception{
+		l = Labirinto.newBuilder("bilocale.txt").getLabirinto();
+		p = new Partita(l);
+		s = new Stanza("Stanza");
+	}
 
-	LabirintoBuilder l = new LabirintoBuilder()
-						.addStanzaVincente("Biblioteca")
-						.addStanzaIniziale("Stanza");
-	Partita p = new Partita(l.getLabirinto());
-	Stanza s = new Stanza("Stanza");
+	 
 	
 	@Test
 	public void testGetStanzaVincente() {
-		assertEquals("Biblioteca", p.getLabirinto().getStanzaVincente().getNome());
+		assertEquals("N10", p.getLabirinto().getStanzaVincente().getNome());
 	}
 
 	@Test
